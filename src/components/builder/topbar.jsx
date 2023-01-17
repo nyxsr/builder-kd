@@ -26,6 +26,8 @@ export const Topbar = () => {
 
   const [state, setState] = useState(null);
 
+  const localState = localStorage.getItem('state-builder')
+
   const handleState = () => {
     if (state !== null) {
       const json = LZUTF8.decompress(
@@ -37,9 +39,9 @@ export const Topbar = () => {
   };
 
   setTimeout(() => {
-    // setState(
-    //   "eyJST09UIjp7InR5cGXECHJlc29sdmVkTmFtZSI6IkNvbnRhaW5lciJ9LCJpc0NhbnZhcyI6dHJ1ZSwicHJvcHPENWJhY2tncm91bmQiOiIjZWVlIiwicGFkZGluZyI6MjAsIndpZHRoIjozMH0sImRpc3BsYXnRYSwiY3VzdG9tIjp7fSwiaGlkZGVuIjpmYWxzZSwibm9kZXMiOltdLCJsaW5rZWROxhF7fX0sIkZfbVZqUWoyQU78AMphcmTuAMXHW/cAxmbFAewAyTPyAL3EVO4AuHBhcmVudCI65gFZ/wDI7wDIdi1YQ3pjSFZOX/sAyEJ1dHRvbv4AynNpesQrc21hbGwiLCJ2YXJpYeUAlW91dGxpbmXlALVvbG9yIjoicHJpbWFyeSIsInRleMQkQ2xpY2sgbeQBxGNoaWxkcuQAv8YWxHbuAQLnAI7/AQT/AQTsAQROZmJ3VmJuYlBP+wEEVOQAqv0BAucAzEhpIHdvcmxkISIsImZvbnRT5QEZ5AKS7QEj8QDXxWH/ANX/ANXsANV1WEgwczM1SmlE/wNr/wNr8QKlOTk57AKiNv8DX/8AzvIAziJZSjMtS3dVNzdjIvUA2ssg/wGv/wGv5QGvSXQncyBtZSBhZ2Fpbv8BtP8BtO4A5usBgf8Buu0A4H0="
-    // );
+    if (localState !== null) {
+     setState(localState)
+    }
   }, 1000);
 
   useEffect(() => {
@@ -63,6 +65,16 @@ export const Topbar = () => {
           />
         </Grid>
         <Grid item>
+        <button
+            className="py-2 px-2 mr-5 bg-[#abcfce]"
+            onClick={() => {
+              const json = query.serialize();
+              localStorage.setItem('state-builder',LZUTF8.encodeBase64(LZUTF8.compress(json)))
+              setSnackbarMessage("Data has been saved!");
+            }}
+          >
+            Save Changes
+          </button>
           <button
             className="py-2 px-2 mr-5 bg-[#abcfce]"
             onClick={() => {
