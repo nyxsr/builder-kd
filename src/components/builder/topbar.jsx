@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import LZUTF8 from "lzutf8";
-import copy from "copy-to-clipboard";
 
 export const Topbar = () => {
   const { actions, query, enabled } = useEditor((state) => ({
@@ -68,22 +67,24 @@ export const Topbar = () => {
         <button
             className="py-2 px-2 mr-5 bg-[#abcfce]"
             onClick={() => {
+              localStorage.removeItem('state-builder');
+              setSnackbarMessage("Cleaning your canvas...");
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            }}
+          >
+            New Project
+            </button>
+        <button
+            className="py-2 px-2 mr-5 bg-[#abcfce]"
+            onClick={() => {
               const json = query.serialize();
               localStorage.setItem('state-builder',LZUTF8.encodeBase64(LZUTF8.compress(json)))
               setSnackbarMessage("Data has been saved!");
             }}
           >
             Save Changes
-          </button>
-          <button
-            className="py-2 px-2 mr-5 bg-[#abcfce]"
-            onClick={() => {
-              const json = query.serialize();
-              copy(LZUTF8.encodeBase64(LZUTF8.compress(json)));
-              setSnackbarMessage("State copied to clipboard");
-            }}
-          >
-            Copy current state
           </button>
           <button
             className="py-2 px-2 bg-[#abcfce]"

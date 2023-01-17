@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 import { ImRedo2, ImUndo2 } from "react-icons/im";
 import { HiOutlineEye } from "react-icons/hi";
 import { TbWorldUpload } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
+import { useEditor } from "@craftjs/core";
 
 function Navbar(props) {
   const navigate = useNavigate();
