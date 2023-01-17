@@ -23,7 +23,7 @@ export const Text = ({ text, fontSize,textAlign }) => {
   console.log(editable);
 
   return (
-    <div ref={(ref) => connect(drag(ref))} onClick={(e) => setEditable(true)} onBlur={(e)=>setEditable(false)}>
+    <div ref={(ref) => connect(drag(ref))}>
       <ContentEditable
         disabled={!editable}
         html={text}
